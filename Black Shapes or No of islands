@@ -1,0 +1,34 @@
+public class Solution {
+    void check(ArrayList<String>A,boolean [][] bool,int i,int j)
+    {
+       bool[i][j] = true;
+        int arr[][] = {{0,-1},{-1,0},{0,1},{1,0}};
+        for(int  c = 0; c < 4; c++)
+        {
+            int x1 = i + arr[c][0];
+            int y1 = j + arr[c][1];
+            if(x1 >= 0 && x1 < A.size() && y1 >= 0 && y1 < A.get(x1).length() && A.get(x1).charAt(y1) == 'X' && bool[x1][y1] == false)
+            {
+                bool[x1][y1] =true;
+                check(A,bool,x1,y1);
+            }
+        }
+    }
+    public int black(ArrayList<String> A) {
+        int n = A.size();
+        int count = 0;
+        boolean [][] bool = new boolean[n][A.get(0).length()];
+        for(int i = 0; i < n; i++)
+        {
+            for(int j = 0; j < A.get(i).length(); j++)
+            {
+                if(A.get(i).charAt(j) == 'X' && bool[i][j] == false)
+                {
+                    count++;
+                    check(A,bool,i,j);
+                }
+            }
+        }
+        return count;
+    }
+}
